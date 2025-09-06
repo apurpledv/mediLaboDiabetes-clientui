@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Liste des patients - mediLaboDiabetes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link th:href="@{/css/styles.css}" rel="stylesheet">
+    </head>
+    <body>
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="/patients">Patients</a></li>
+                    <li><a href="/">Consulter un historique</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div id="wrapper">
+            <header>
+                <img th:src="@{/images/mldLogo2.png}" alt="logo">
+            </header>
+            <section>
+                <article>
+                    <header>
+                        <h2>Patients enregistrés</h2>
+                        <a class="buttonStyle1" href="/patients/add">Nouveau patient</a>
+                    </header>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Genre</th>
+                                <th>Date de naissance</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="patient : ${patientsList}">
+                                <td th:text="${patient.lastName}"></td>
+                                <td th:text="${patient.firstName}"></td>
+                                <td th:text="${patient.gender}"></td>
+                                <td th:text="${patient.birthDate}"></td>
+
+                                <td th:unless="${patient.address != null and !#strings.isEmpty(patient.address)}">-</td>
+                                    <td th:if="${patient.address != null and !#strings.isEmpty(patient.address)}" th:text="${patient.address}"></td>
+
+                                <td th:unless="${patient.phone != null and !#strings.isEmpty(patient.phone)}">-</td>
+                                    <td th:if="${patient.phone != null and !#strings.isEmpty(patient.phone)}" th:text="${patient.phone}"></td>
+
+                                <td><a class="buttonStyle1" th:href="@{/patients/infos/{id}(id=${patient.id})}">Infos</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </section>
+        </div>
+    </body>
+</html>

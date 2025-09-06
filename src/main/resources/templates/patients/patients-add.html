@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Nouveau patient - mediLaboDiabetes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link th:href="@{/css/styles.css}" rel="stylesheet">
+    </head>
+    <body>
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="/patients">Patients</a></li>
+                    <li><a href="/">Consulter un historique</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div id="wrapper">
+            <header>
+                <img th:src="@{/images/mldLogo2.png}" alt="logo">
+            </header>
+            <section>
+                <article>
+                    <form class="elementWrapper" method="POST" action="#" th:action="@{/patients/add}" th:object="${addedPatient}">
+                        <header>
+                            <a href="/patients"><img th:src="@{/images/back.png}" alt="return"></a>
+                            <h2>Ajouter un patient</h2>
+                        </header>
+                        <label>Nom<input type="text" placeholder="Nom" th:field="*{lastName}" required></label>
+                        <label>Prénom<input type="text" placeholder="Prénom" th:field="*{firstName}" required></label>
+                        <label>Genre<input type="text" placeholder="Genre" th:field="*{gender}" required></label>
+                        <label>Date de naissance<input type="date" th:field="*{birthDate}" required></label>
+                        <label>Adresse<input type="text" placeholder="Adresse" th:field="*{address}"></label>
+                        <label>Téléphone<input type="text" placeholder="Téléphone" th:field="*{phone}"></label>
+                        <input class="buttonStyle1" type="submit" value="Créer le patient">
+                    </form>
+                </article>
+            </section>
+        </div>
+    </body>
+</html>

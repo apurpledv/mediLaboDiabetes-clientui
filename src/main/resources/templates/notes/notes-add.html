@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Nouvelle note - mediLaboDiabetes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link th:href="@{/css/styles.css}" rel="stylesheet">
+    </head>
+    <body>
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="/patients">Patients</a></li>
+                    <li><a href="/">Consulter un historique</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <div id="wrapper">
+            <header>
+                <img th:src="@{/images/mldLogo2.png}" alt="logo">
+            </header>
+            <section>
+                <article>
+                    <form class="elementWrapper" method="POST" action="#" th:action="@{/notes/add/{id}(id=${patientId})}" th:object="${addedNote}">
+                        <header>
+                            <a th:href="@{/patients/infos/{id}(id=${patientId})}"><img th:src="@{/images/back.png}" alt="return"></a>
+                            <h2>Ajouter une note</h2>
+                        </header>
+                        <label class="noteContentTextArea">Commentaire<textarea placeholder="Écrire un commentaire..." th:field="*{noteContent}" required></textarea></label>
+                        <input class="buttonStyle1" type="submit" value="Créer la note">
+                    </form>
+                </article>
+            </section>
+        </div>
+    </body>
+</html>
