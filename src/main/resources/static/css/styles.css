@@ -212,8 +212,6 @@ span.elementWrapper:nth-child(2) {
 
 #riskLevelIcon {
     height: 15px;
-    /*border-top-right-radius: 50px;*/
-    /*border-bottom-right-radius: 50px;*/
     transform: skew(-20deg);
     border: 1px solid rgb(50, 50, 50);
 }
