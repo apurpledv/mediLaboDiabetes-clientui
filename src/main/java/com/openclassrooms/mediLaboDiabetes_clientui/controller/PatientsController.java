@@ -14,6 +14,7 @@ import com.openclassrooms.mediLaboDiabetes_clientui.beans.NoteBeanDTO;
 import com.openclassrooms.mediLaboDiabetes_clientui.beans.PatientBean;
 import com.openclassrooms.mediLaboDiabetes_clientui.proxies.MSNoteProxy;
 import com.openclassrooms.mediLaboDiabetes_clientui.proxies.MSPatientProxy;
+import com.openclassrooms.mediLaboDiabetes_clientui.proxies.MSRiskProxy;
 
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class PatientsController {
 
     @Autowired
     MSNoteProxy notesProxy;
+
+    @Autowired
+    MSRiskProxy riskProxy;
 
     @GetMapping("/patients")
     public String patientsView(Model model) {
@@ -61,6 +65,19 @@ public class PatientsController {
                 note.setNoteContent(note.getNoteContent().replaceAll("\n", "<br>\n"));
 
             model.addAttribute("notesList", notesList);
+
+            int riskLevel = riskProxy.getRiskLevel(id);
+            String riskLevelTitle;
+            switch(riskLevel) {
+                case 0: riskLevelTitle = "Aucun danger"; break;
+                case 1: riskLevelTitle = "Risque limité"; break;
+                case 2: riskLevelTitle = "Danger"; break;
+                case 3: riskLevelTitle = "Apparition précoce"; break;
+                default: riskLevelTitle = "Aucun danger";
+            }
+            model.addAttribute("riskLevel", riskProxy.getRiskLevel(id));
+            model.addAttribute("riskLevelTitle", riskLevelTitle);
+
         } catch (FeignException e) {
             model.addAttribute("notesList", null);
             model.addAttribute("notesErrorMsg", "Service de notes indisponible.");

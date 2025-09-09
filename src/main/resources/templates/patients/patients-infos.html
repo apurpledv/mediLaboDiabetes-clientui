@@ -39,26 +39,32 @@
                         <label>Téléphone<input type="text" th:placeholder="${placeholderPatient.phone}" th:field="*{phone}"></label>
                         <input class="buttonStyle1" type="submit" value="Modifier">
                     </form>
-                    <span class="elementWrapper">
-                        <header class="elementHeaderAlignB">
-                            <h2><span>Notes du patient</span></h2>
-                            <a th:href="@{/notes/add/{id}(id=${placeholderPatient.id})}" th:if="${notesList != null}"><img th:src="@{/images/add.png}" alt="add_note"></a>
-                        </header>
-                        <div class="noteOuterWrapper">
-                            <th:block th:if="${notesList != null}">
-                                <span class="noteInnerWrapper" th:each="note : ${notesList}">
-                                    <a class="noteContent" th:href="@{/notes/update/{id}(id=${note.id})}">
-                                        <p th:utext="${note.noteContent}"></p>
-                                    </a>
-                                </span>
-                            </th:block>
-                            <th:block th:unless="${notesList != null}">
-                                <span class="noteInnerWrapper">
-                                    <p class="noteContent" th:text="${notesErrorMsg}"></p>
-                                </span>
-                            </th:block>
-                        </div>
-                    </span>
+                    <div class="patientNotesWrapper">
+                        <span class="elementWrapper">
+                            <header class="elementHeaderAlignB">
+                                <h2><span>Notes du patient</span></h2>
+                                <a th:href="@{/notes/add/{id}(id=${placeholderPatient.id})}" th:if="${notesList != null}"><img th:src="@{/images/add.png}" alt="add_note"></a>
+                            </header>
+                            <div class="noteOuterWrapper">
+                                <th:block th:if="${notesList != null}">
+                                    <span class="noteInnerWrapper" th:each="note : ${notesList}">
+                                        <a class="noteContent" th:href="@{/notes/update/{id}(id=${note.id})}">
+                                            <p th:utext="${note.noteContent}"></p>
+                                        </a>
+                                    </span>
+                                </th:block>
+                                <th:block th:unless="${notesList != null}">
+                                    <span class="noteInnerWrapper">
+                                        <p class="noteContent" th:text="${notesErrorMsg}"></p>
+                                    </span>
+                                </th:block>
+                            </div>
+                        </span>
+                        <span class="elementWrapper riskLevelPanel">
+                            <p class="riskLevelText" th:text="'Niveau de risque : ' + ${riskLevelTitle}" th:if="${notesList != null}"></p>
+                            <i id="riskLevelIcon" th:class="'riskLevelIcon' + ${riskLevel}"></i>
+                        </span>
+                    </div>
                 </article>
             </section>
         </div>
